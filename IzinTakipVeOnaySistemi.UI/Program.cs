@@ -1,4 +1,9 @@
+
+using IzinTakipVeOnaySistemi.DAL.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace IzinTakipVeOnaySistemi.UI
+
 {
     public class Program
     {
@@ -6,8 +11,12 @@ namespace IzinTakipVeOnaySistemi.UI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<IzinTakipOnayDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Baglanti"))); //EF Core kullanýmý için DbContext sýnýfý projeye eklenir
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            
 
             var app = builder.Build();
 
