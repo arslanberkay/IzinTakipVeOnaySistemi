@@ -22,7 +22,6 @@ namespace IzinTakipVeOnaySistemi.DAL.Entities
 
         public DateTime? OnayTarihi { get; set; }
 
-        public int OdemeBilgisiId { get; set; }
         public OdemeBilgisi OdemeBilgisi { get; set; }
 
     }

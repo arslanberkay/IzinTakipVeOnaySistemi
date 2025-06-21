@@ -29,29 +29,13 @@ namespace IzinTakipVeOnaySistemi.DAL.Repositories.Implementations
             _db.SaveChanges();
         }
 
-        public IEnumerable<T> HepsiniListele(T entity)
+        public IEnumerable<T> HepsiniListele()
         {
             return _db.Set<T>().Where(x => x.AktiflikDurumu).ToList();
         }
 
-        public void Sil(int id)
-        {
-            var entity = _db.Set<T>().Find(id);
-            if (entity != null)
-            {
-                _db.Set<T>().Remove(entity);
-                _db.SaveChanges();
-            }
-        }
+        
 
-        public void SoftSil(int id)
-        {
-            var entity = _db.Set<T>().Find(id);
-            if (entity != null)
-            {
-                entity.AktiflikDurumu = false;
-                _db.SaveChanges();
-            }
-        }
+        
     }
 }

@@ -12,6 +12,7 @@ namespace IzinTakipVeOnaySistemi.DAL.Entities
 
         public DateTime OdemeTarihi { get; set; }
 
+        public int IzinTalepId { get; set; }
         public IzinTalep IzinTalep { get; set; }
 
     }

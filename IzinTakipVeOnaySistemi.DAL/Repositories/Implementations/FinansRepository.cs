@@ -29,7 +29,7 @@ namespace IzinTakipVeOnaySistemi.DAL.Repositories.Implementations
             _db.SaveChanges();
         }
 
-        public IEnumerable<T> HepsiniListele(T entity)
+        public IEnumerable<T> HepsiniListele()
         {
             return _db.Set<T>().Where(x => x.AktiflikDurumu).ToList();
         }
