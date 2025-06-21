@@ -10,6 +10,6 @@ namespace IzinTakipVeOnaySistemi.DAL.Interfaces
     {
         T GetirById(int id); //id değeriyle veritabanındaki bir kaydı getirir.
 
-        IEnumerable<T> HepsiniListele(T entity); //T türündeki tüm verileri getirir.
+        IEnumerable<T> HepsiniListele(); //T türündeki tüm verileri getirir.
     }
 }
