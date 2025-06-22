@@ -1,4 +1,5 @@
-﻿using IzinTakipVeOnaySistemi.BLL.DTO;
+﻿using Azure.Core.GeoJson;
+using IzinTakipVeOnaySistemi.BLL.DTO;
 using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
 using IzinTakipVeOnaySistemi.DAL.Enums;
 using IzinTakipVeOnaySistemi.UI.ViewModels;
@@ -158,6 +159,44 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel loginViewModel)
+        {
+            var girisYapanCalisan = _calisanServisi.TumCalisanlariGetir()
+                .FirstOrDefault(c => c.EpostaAdresi == loginViewModel.Eposta && c.Sifre == loginViewModel.Sifre);
+
+            if (girisYapanCalisan == null)
+            {
+                ViewBag.Hata = "E-posta veya şifre hatalı!";
+                return View(loginViewModel);
+            }
+
+            //Bu bilgiler sayesinde sistem giriş yapan çalışanı sistem kapanana kadar tutar
+            HttpContext.Session.SetInt32("CalisanId", girisYapanCalisan.Id);
+            HttpContext.Session.SetString("AdSoyad", girisYapanCalisan.TamAd);
+            HttpContext.Session.SetString("Rol", girisYapanCalisan.Rol.ToString());
+
+            return girisYapanCalisan.Rol switch
+            {
+                Rol.Personel => RedirectToAction("Index", "Personel"),
+                Rol.IK => RedirectToAction("Index", "IK"),
+                Rol.Finans => RedirectToAction("Index", "Finans"),
+                _ => RedirectToAction("Login", "Account")
+            };
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear(); //Oturum bilgileri temizlenir.
+            return RedirectToAction("Login");
         }
 
     }

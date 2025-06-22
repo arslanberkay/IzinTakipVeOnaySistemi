@@ -1,0 +1,27 @@
+﻿@using IzinTakipVeOnaySistemi.UI.ViewModels
+@model LoginViewModel
+
+<link rel="stylesheet" href="~/css/Login.css"/>
+@{
+	Layout = null;
+}
+
+<h2> İzin Takip Sistemi </h2>
+<form asp-action="Login" method="post" class="form-group">
+	<div>
+		<label asp-for="Eposta">E-posta</label>
+		<input asp-for="Eposta" type="email" />
+	</div>
+
+	<div>
+		<label asp-for="Sifre">Şifre</label>
+		<input asp-for="Sifre" type="password" />
+	</div>
+
+	@if (ViewBag.Hata!=null)
+	{
+		<span>@ViewBag.Hata</span>
+	}
+
+	<button type="submit" >Giriş Yap</button>
+</form>

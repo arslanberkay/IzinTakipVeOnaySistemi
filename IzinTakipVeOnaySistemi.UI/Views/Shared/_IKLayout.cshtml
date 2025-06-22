@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>IK Sayfası</title>
+    <link href="~/css/Menu.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="header">
+        <h2>IK Sayfası</h2>
+        @if (Context.Session.GetInt32("CalisanId") != null)
+        {
+            <div class="right-section">
+                <div class="text-success">
+                    @Context.Session.GetString("AdSoyad") - @Context.Session.GetString("Rol")
+                </div>
+                <a asp-action="LogOut" asp-controller="Account">
+                    <button>Çıkış Yap</button>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="content">
+        @RenderBody()
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #2c2f33;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ bölümleri ayırır */
+    align-items: center; /* Dikeyde ortalar */
+}
+
+    .header .left-section {
+        display: flex; /* Başlık ve butonu yatayda hizalar */
+        align-items: center; /* Elemanları dikeyde ortalar */
+    }
+
+    .header .right-section {
+        display: flex; /* Ad soyad ve çıkış butonunu yatayda hizalar */
+        align-items: center; /* Elemanları dikeyde ortalar */
+        gap: 10px; /* Ad soyad ile çıkış butonu arasında boşluk */
+        padding-right: 10px;
+    }
+
+    .header button {
+        background-color: #4a4d52;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 20px; /* Başlık ile buton arasında boşluk bırakır */
+    }
+
+        .header button:hover {
+            background-color: #5b6065;
+        }
+
+.content {
+    padding: 20px;
+}
