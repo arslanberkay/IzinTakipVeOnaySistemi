@@ -25,26 +25,20 @@
 		<input asp-for="Eposta" class="form-control" />
 	</div>
 
-	<div class="form-group">
-		<label asp-for="IzinSayisi"></label>
-		<input asp-for="IzinSayisi" class="form-control" />
-	</div>
-
-	<div class="form-group">
-		<label asp-for="Ad"></label>
-		<input asp-for="Ad" class="form-control" />
-	</div>
-
 	<div>
 		<label asp-for="DepartmanId">Departman</label>
 		<select asp-for="DepartmanId" asp-items="@ViewBag.Departmanlar" class="form-control">
 			<option value="">Lütfen bir departman seçiniz</option>
 		</select>
 	</div>
-		
 
-	<select></select>
-	
+	<div>
+		<label asp-for="Rol"></label>
+		<select asp-for="Rol" asp-items="@ViewBag.Roller" class="form-control">
+			<option value="">Rol seçiniz </option>
+		</select>
+	</div>
+		
 	<button type="submit" class="btn btn-success">OLUŞTUR</button>
 
 </form>

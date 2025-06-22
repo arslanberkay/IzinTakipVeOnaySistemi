@@ -1,0 +1,41 @@
+﻿@using IzinTakipVeOnaySistemi.BLL.DTO
+@model CalisanCreateUpdateDTO
+
+<h2> Çalışan Güncelleme Sayfası</h2>
+
+<form asp-action="Edit" asp-route-calisanId="@Model.Id" method="post" class="form-group">
+	<input type="hidden" asp-for="Id" />
+
+	<div>
+		<label asp-for="Ad"></label>
+		<input asp-for="Ad" class="form-control" />
+	</div>
+
+	<div>
+		<label asp-for="Soyad"></label>
+		<input asp-for="Soyad" class="form-control" />
+	</div>
+
+	<div>
+		<label asp-for="Eposta"></label>
+		<input asp-for="Eposta" class="form-control" />
+	</div>
+
+	<div>
+		<label asp-for="Sifre"></label>
+		<input asp-for="Sifre" class="form-control" />
+	</div>
+
+	<div>
+		<label asp-for="DepartmanId">Departman Adı</label>
+		<select asp-for="DepartmanId" asp-items="@ViewBag.Departmanlar" class="form-control"></select>
+	</div>
+
+	<div>
+		<label asp-for="Rol">Rol</label>
+		<select asp-for="Rol" asp-items="@ViewBag.Roller" class="form-control"></select>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Kaydet</button>
+
+</form>

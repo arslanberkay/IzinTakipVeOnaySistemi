@@ -1,6 +1,7 @@
 ﻿using IzinTakipVeOnaySistemi.DAL.Context;
 using IzinTakipVeOnaySistemi.DAL.Entities;
 using IzinTakipVeOnaySistemi.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,14 @@ namespace IzinTakipVeOnaySistemi.DAL.Repositories.Implementations
                 entity.AktiflikDurumu = false;
                 _db.SaveChanges();
             }
+        }
+
+        public IEnumerable<Calisan> CalisanlariDepartmanIleGetir()
+        {
+            return _db.Set<Calisan>()
+                .Include(c=>c.Departman)
+                .Where(c=>c.AktiflikDurumu)
+                .ToList();
         }
     }
 }

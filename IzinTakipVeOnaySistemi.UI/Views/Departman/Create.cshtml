@@ -1,0 +1,11 @@
+﻿@using IzinTakipVeOnaySistemi.BLL.DTO
+@model DepartmanCreateUpdateDTO
+
+<h2> Departman Oluşturma Sayfası</h2>
+
+<form asp-action="Create" method="post" class="form-group">
+	<label asp-for="Ad"></label>
+	<input asp-for="Ad" class="form-control" />
+
+	<button type="submit" class="btn btn-success">Oluştur</button>
+</form>

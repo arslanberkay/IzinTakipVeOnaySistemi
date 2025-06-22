@@ -22,7 +22,7 @@ namespace IzinTakipVeOnaySistemi.DAL.Entities
 
         public DateTime? OnayTarihi { get; set; }
 
-        public OdemeBilgisi OdemeBilgisi { get; set; }
+        public OdemeBilgisi? OdemeBilgisi { get; set; }
 
     }
 }
