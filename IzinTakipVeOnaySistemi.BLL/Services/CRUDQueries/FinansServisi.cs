@@ -14,12 +14,29 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
     public class FinansServisi : IFinansServisi
     {
         private readonly IFinansRepository<IzinTalep> _finansRepo;
+        private readonly IOdemeBilgisiRepository<OdemeBilgisi> _odemeRepo;
 
-        public FinansServisi(IFinansRepository<IzinTalep> finansRepo)
+        public FinansServisi(IFinansRepository<IzinTalep> finansRepo, IOdemeBilgisiRepository<OdemeBilgisi> odemeRepo)
         {
             _finansRepo = finansRepo;
+            _odemeRepo = odemeRepo;
         }
 
+        public IEnumerable<OdemeBilgisi> OdemeBilgileriniGetir()
+        {
+            return _odemeRepo.HepsiniListele().ToList();
+        }
+
+        public void OdemeBilgisiGuncelle(int odemeBilgisiId, OdemeBilgisiUpdateDTO dto)
+        {
+            var odemeBilgisi = _odemeRepo.GetirById(odemeBilgisiId);
+
+            if (odemeBilgisi != null)
+            {
+                odemeBilgisi.OdenecekTutar = dto.OdenecekTutar;
+                _odemeRepo.Guncelle(odemeBilgisi);
+            }
+        }
 
         public void OdemeBilgisiOlustur(int izinTalepId, OdemeBilgisiCreateDTO dto)
         {
@@ -30,7 +47,17 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
                 IzinTalepId = izinTalepId
             };
 
-            
+            _odemeRepo.Ekle(odemeBilgisi);
+
+        }
+
+        public void OdemeBilgisiSil(int odemeBilgisiId)
+        {
+            var odemeBilgisi = _odemeRepo.GetirById(odemeBilgisiId);
+            if (odemeBilgisi != null)
+            {
+                _odemeRepo.SoftSil(odemeBilgisiId);
+            }
         }
 
         public IEnumerable<IzinTalep> OnaylanmisTalepleriGetir()

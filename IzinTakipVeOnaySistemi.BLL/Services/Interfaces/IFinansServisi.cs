@@ -13,5 +13,11 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.Interfaces
         IEnumerable<IzinTalep> OnaylanmisTalepleriGetir();
 
         void OdemeBilgisiOlustur(int izinTalepId, OdemeBilgisiCreateDTO dto);
+
+        void OdemeBilgisiGuncelle(int odemeBilgisiId, OdemeBilgisiUpdateDTO dto);
+
+        void OdemeBilgisiSil(int odemeBilgisiId);
+
+        IEnumerable<OdemeBilgisi> OdemeBilgileriniGetir();
     }
 }
