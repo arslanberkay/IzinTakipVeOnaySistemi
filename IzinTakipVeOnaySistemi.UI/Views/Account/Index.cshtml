@@ -1,0 +1,34 @@
+﻿@using IzinTakipVeOnaySistemi.UI.ViewModels
+@model IEnumerable<CalisanListViewModel>
+
+<h2>Çalışanlar</h2>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td>Ad</td>
+			<td>Soyad</td>
+			<td>E-posta</td>
+			<td>İzin Sayısı</td>
+			<td>Rol</td>
+			<td>Departman Id</td>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (var calisan in Model)
+		{
+			<tr>
+				<td>@calisan.Id</td>
+				<td>@calisan.Ad</td>
+				<td>@calisan.Soyad</td>
+				<td>@calisan.Eposta</td>
+				<td>@calisan.IzinSayisi</td>
+				<td>@calisan.Rol</td>
+				<td>@calisan.DepartmanId</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
