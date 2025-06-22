@@ -1,5 +1,9 @@
 
+using IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries;
+using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
 using IzinTakipVeOnaySistemi.DAL.Context;
+using IzinTakipVeOnaySistemi.DAL.Repositories.Implementations;
+using IzinTakipVeOnaySistemi.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace IzinTakipVeOnaySistemi.UI
@@ -13,10 +17,25 @@ namespace IzinTakipVeOnaySistemi.UI
 
             builder.Services.AddDbContext<IzinTakipOnayDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Baglanti"))); //EF Core kullanýmý için DbContext sýnýfý projeye eklenir
 
+            //Repo kayýtlarý
+            builder.Services.AddScoped(typeof(ICalisanRepository<>), typeof(CalisanRepository<>));
+            builder.Services.AddScoped(typeof(IFinansRepository<>), typeof(FinansRepository<>));
+            builder.Services.AddScoped(typeof(IIKRepository<>), typeof(IKRepository<>));
+            builder.Services.AddScoped(typeof(IOdemeBilgisiRepository<>), typeof(OdemeBilgisiRepository<>));
+            builder.Services.AddScoped(typeof(IPersonelRepository<>), typeof(PersonelRepository<>));
+            builder.Services.AddScoped(typeof(IDepartmanRepository<>), typeof(DepartmanRepository<>));
+
+            //Service kayýtlarý
+            builder.Services.AddScoped(typeof(ICalisanServisi), typeof(CalisanServisi));
+            builder.Services.AddScoped(typeof(IFinansServisi), typeof(FinansServisi));
+            builder.Services.AddScoped(typeof(IIKIzinServisi), typeof(IKIzinServisi));
+            builder.Services.AddScoped(typeof(IPersonelIzinServisi), typeof(PersonelIzinServisi));
+            builder.Services.AddScoped(typeof(IDepartmanServisi), typeof(DepartmanServisi));
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            
+
 
             var app = builder.Build();
 

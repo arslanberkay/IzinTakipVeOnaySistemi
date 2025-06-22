@@ -1,0 +1,50 @@
+﻿@using IzinTakipVeOnaySistemi.BLL.DTO
+@model CalisanCreateUpdateDTO
+
+<h2>Çalışan Kayıt Sayfası</h2>
+
+<form asp-action="Create" method="post" class="form-group">
+
+	<div class="form-group">
+		<label asp-for="Ad"></label>
+		<input asp-for="Ad" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Soyad"></label>
+		<input asp-for="Soyad" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Sifre"></label>
+		<input asp-for="Sifre" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Eposta">E-posta</label>
+		<input asp-for="Eposta" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="IzinSayisi"></label>
+		<input asp-for="IzinSayisi" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label asp-for="Ad"></label>
+		<input asp-for="Ad" class="form-control" />
+	</div>
+
+	<div>
+		<label asp-for="DepartmanId">Departman</label>
+		<select asp-for="DepartmanId" asp-items="@ViewBag.Departmanlar" class="form-control">
+			<option value="">Lütfen bir departman seçiniz</option>
+		</select>
+	</div>
+		
+
+	<select></select>
+	
+	<button type="submit" class="btn btn-success">OLUŞTUR</button>
+
+</form>
