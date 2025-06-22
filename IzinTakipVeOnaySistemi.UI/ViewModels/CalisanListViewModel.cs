@@ -11,5 +11,6 @@ namespace IzinTakipVeOnaySistemi.UI.ViewModels
         public int IzinSayisi { get; set; }
         public Rol Rol { get; set; }
         public int DepartmanId { get; set; }
+        public string DepartmanAdi { get; set; }
     }
 }

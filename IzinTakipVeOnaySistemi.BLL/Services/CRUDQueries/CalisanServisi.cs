@@ -30,12 +30,11 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
                 calisan.Soyad = dto.Soyad;
                 calisan.EpostaAdresi = dto.Eposta;
                 calisan.Sifre = dto.Sifre;
-                calisan.IzinSayisi = dto.IzinSayisi;
                 calisan.Rol = dto.Rol;
                 calisan.DepartmanId = dto.DepartmanId;
+                _calisanRepo.Guncelle(calisan);
             }
 
-            _calisanRepo.Guncelle(calisan);
         }
 
         public void CalisanOlustur(CalisanCreateUpdateDTO dto)
@@ -46,7 +45,6 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
                 Soyad = dto.Soyad,
                 EpostaAdresi = dto.Eposta,
                 Sifre = dto.Sifre,
-                IzinSayisi = dto.IzinSayisi,
                 Rol = dto.Rol,
                 DepartmanId = dto.DepartmanId,
             };
@@ -57,7 +55,7 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
         public void CalisanSil(int calisanId)
         {
             var calisan = _calisanRepo.GetirById(calisanId);
-            if (calisan!=null)
+            if (calisan != null)
             {
                 _calisanRepo.SoftSil(calisanId);
             }
@@ -65,7 +63,7 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
 
         public IEnumerable<Calisan> TumCalisanlariGetir()
         {
-            return _calisanRepo.HepsiniListele();
+            return _calisanRepo.CalisanlariDepartmanIleGetir();
         }
     }
 }

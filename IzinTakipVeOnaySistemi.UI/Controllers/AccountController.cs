@@ -5,6 +5,7 @@ using IzinTakipVeOnaySistemi.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Frozen;
 
 namespace IzinTakipVeOnaySistemi.UI.Controllers
 {
@@ -31,6 +32,7 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
                     Rol = x.Rol,
                     IzinSayisi = x.IzinSayisi,
                     DepartmanId = x.DepartmanId,
+                    DepartmanAdi = x.Departman.Ad,
 
                 }).ToList();
 
@@ -76,7 +78,7 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
                         Text = d.Ad
                     }).ToList();
 
-               
+
                 var roller = Enum.GetValues(typeof(Rol))
                     .Cast<Rol>()
                     .Select(r => new SelectListItem
@@ -89,5 +91,74 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
             _calisanServisi.CalisanOlustur(dto);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int calisanId)
+        {
+            var guncellenecekCalisan = _calisanServisi.TumCalisanlariGetir()
+                .FirstOrDefault(x => x.Id == calisanId);
+
+            if (guncellenecekCalisan == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new CalisanCreateUpdateDTO
+            {
+                Id = calisanId,
+                Ad = guncellenecekCalisan.Ad,
+                Soyad = guncellenecekCalisan.Soyad,
+                Eposta = guncellenecekCalisan.EpostaAdresi,
+                Sifre = guncellenecekCalisan.Sifre,
+                Rol = guncellenecekCalisan.Rol,
+                DepartmanId = guncellenecekCalisan.DepartmanId
+            };
+
+            var departmanlar = _departmanServisi.DepartmanlariGetir()
+                .Select(d => new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.Ad,
+                }).ToList();
+
+            var roller = Enum.GetValues(typeof(Rol)) //Enum'daki tüm değerleri bir dizi olarak döndürür.
+                .Cast<Rol>() //Diziyi Rol türüne dönüştürürüz
+                .Select(r => new SelectListItem
+                {
+                    Value = r.ToString(),
+                    Text = r.ToString()
+                }).ToList();
+
+            ViewBag.Departmanlar = departmanlar;
+            ViewBag.Roller = roller;
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int calisanId, CalisanCreateUpdateDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            _calisanServisi.CalisanGuncelle(calisanId, dto);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int calisanId)
+        {
+            var silinecekCalisan = _calisanServisi.TumCalisanlariGetir()
+                .FirstOrDefault(c => c.Id == calisanId);
+
+            if (silinecekCalisan != null)
+            {
+                _calisanServisi.CalisanSil(calisanId);
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

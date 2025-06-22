@@ -10,5 +10,6 @@ namespace IzinTakipVeOnaySistemi.DAL.Repositories.Interfaces
 {
     public interface ICalisanRepository<T> : IEkle<T>, IListele<T>, IGuncelle<T>, ISoftSil<T> where T : BaseEntity
     {
+        IEnumerable<Calisan> CalisanlariDepartmanIleGetir();
     }
 }

@@ -2,17 +2,20 @@
 @model IEnumerable<CalisanListViewModel>
 
 <h2>Çalışanlar</h2>
+<a asp-action="Create" class="btn btn-success">Yeni Çalışan Oluştur</a>
 
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<td>Id</td>
-			<td>Ad</td>
-			<td>Soyad</td>
-			<td>E-posta</td>
-			<td>İzin Sayısı</td>
-			<td>Rol</td>
-			<td>Departman Id</td>
+			<th>Id</th>
+			<th>Ad</th>
+			<th>Soyad</th>
+			<th>E-posta</th>
+			<th>İzin Sayısı</th>
+			<th>Rol</th>
+			<th>Departman Id</th>
+			<th>Departman Adı</th>
+			<th>İşlemler</th>
 		</tr>
 	</thead>
 
@@ -20,13 +23,18 @@
 		@foreach (var calisan in Model)
 		{
 			<tr>
-				<td>@calisan.Id</td>
+				<th>@calisan.Id</th>
 				<td>@calisan.Ad</td>
 				<td>@calisan.Soyad</td>
 				<td>@calisan.Eposta</td>
 				<td>@calisan.IzinSayisi</td>
 				<td>@calisan.Rol</td>
 				<td>@calisan.DepartmanId</td>
+				<td>@calisan.DepartmanAdi</td>
+				<td>
+					<a asp-action="Edit" asp-route-calisanId="@calisan.Id" class="btn btn-warning">Düzenle</a>
+					<a asp-action="Delete" asp-route-calisanId="@calisan.Id" class="btn btn-danger">Sil</a>
+				</td>
 			</tr>
 		}
 	</tbody>

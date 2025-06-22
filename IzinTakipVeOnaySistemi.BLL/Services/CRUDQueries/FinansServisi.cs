@@ -22,6 +22,11 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
             _odemeRepo = odemeRepo;
         }
 
+        public IEnumerable<IzinTalep> OnaylanmisTalepleriGetir()
+        {
+            return _finansRepo.HepsiniListele().Where(x => x.TalepDurumu == TalepDurum.Onaylandı).ToList();
+        }
+
         public IEnumerable<OdemeBilgisi> OdemeBilgileriniGetir()
         {
             return _odemeRepo.HepsiniListele().ToList();
@@ -60,9 +65,6 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
             }
         }
 
-        public IEnumerable<IzinTalep> OnaylanmisTalepleriGetir()
-        {
-            return _finansRepo.HepsiniListele().Where(x => x.TalepDurumu == TalepDurum.Onaylandı).ToList();
-        }
+        
     }
 }

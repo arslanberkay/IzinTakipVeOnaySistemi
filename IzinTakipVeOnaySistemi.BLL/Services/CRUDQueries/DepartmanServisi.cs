@@ -26,8 +26,8 @@ namespace IzinTakipVeOnaySistemi.BLL.Services.CRUDQueries
             if (departman != null)
             {
                 departman.Ad = dto.Ad;
+                _departmanRepo.Guncelle(departman);
             }
-            _departmanRepo.Guncelle(departman);
         }
 
         public IEnumerable<Departman> DepartmanlariGetir()

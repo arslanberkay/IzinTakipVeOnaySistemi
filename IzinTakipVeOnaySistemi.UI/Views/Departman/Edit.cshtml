@@ -1,0 +1,13 @@
+﻿@using IzinTakipVeOnaySistemi.BLL.DTO
+@model DepartmanCreateUpdateDTO
+
+<h2> Departman Düzenleme Sayfası</h2>
+
+<form asp-action="Edit" class="form-group">
+	<div class="form-group"
+		<label asp-for="Ad"></label>
+		<input asp-for="Ad"  class="form-control"/>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

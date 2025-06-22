@@ -1,0 +1,28 @@
+﻿@using IzinTakipVeOnaySistemi.UI.ViewModels
+@model IEnumerable<DepartmanListViewModel>
+
+<h2>Departmanlar</h2>
+<a asp-action="Create" class="btn btn-success">Yeni Departman Ekle</a>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Ad</th>
+			<th>İşlemler</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var departman in Model)
+		{
+			<tr>
+				<th>@departman.Id</th>
+				<td>@departman.Ad</td>
+				<td>
+					<a asp-action="Edit" asp-route-departmanId="@departman.Id" class="btn btn-warning">Düzenle</a>
+					<a asp-action="Delete" asp-route-departmanId="@departman.Id" class="btn btn-danger">Sil</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
