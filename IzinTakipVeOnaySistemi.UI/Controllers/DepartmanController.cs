@@ -45,11 +45,11 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int departmanId)
+        public IActionResult Edit(int id)
         {
 
             var duzenlenecekDepartman = _departmanServisi.DepartmanlariGetir()
-                .Where(d => d.Id == departmanId)
+                .Where(d => d.Id == id)
                 .FirstOrDefault();
 
             if (duzenlenecekDepartman == null)
@@ -66,24 +66,24 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int departmanId, DepartmanCreateUpdateDTO dto)
+        public IActionResult Edit(int id, DepartmanCreateUpdateDTO dto)
         {
             if (!ModelState.IsValid)
             {
                 return View(dto);
             }
-            _departmanServisi.DepartmanGuncelle(departmanId, dto);
+            _departmanServisi.DepartmanGuncelle(id, dto);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int departmanId)
+        public IActionResult Delete(int id)
         {
             var silinecekDepartman = _departmanServisi.DepartmanlariGetir()
-                .FirstOrDefault(d => d.Id == departmanId);
+                .FirstOrDefault(d => d.Id == id);
 
             if (silinecekDepartman != null)
             {
-                _departmanServisi.DepartmanSil(departmanId);
+                _departmanServisi.DepartmanSil(id);
 
             }
 

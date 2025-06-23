@@ -2,6 +2,7 @@
 using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
 using IzinTakipVeOnaySistemi.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace IzinTakipVeOnaySistemi.UI.Controllers
 {
@@ -14,10 +15,16 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
             _personelIzinServisi = personelIzinServisi;
         }
 
+        //Giriş Yapan Çalışan Id parametresini döner
+        private int? GetGirisYapanCalisanId()
+        {
+            return HttpContext.Session.GetInt32("CalisanId");
+        }
+
         public IActionResult Index()
         {
             //Giriş yapan çalışanı bulalım
-            var girisYapanCalisanId = HttpContext.Session.GetInt32("CalisanId");
+            var girisYapanCalisanId = GetGirisYapanCalisanId();
 
             //Oturum Kontrolü
             if (girisYapanCalisanId == null) { return RedirectToAction("Login", "Account"); }
@@ -45,14 +52,14 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         [HttpPost]
         public IActionResult Create(IzinTalepCreateDTO dto)
         {
-            var calisanId = HttpContext.Session.GetInt32("CalisanId");
+            var calisanId = GetGirisYapanCalisanId();
 
             if (calisanId == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            dto = dto with { CalisanId = calisanId.Value };
+            dto.CalisanId = calisanId.Value;
 
             if (!ModelState.IsValid)
             {
@@ -62,5 +69,61 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
             _personelIzinServisi.IzinTalebiOlustur(dto);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var calisanId = GetGirisYapanCalisanId();
+
+            if (calisanId == null) { return RedirectToAction("Login", "Account"); }
+
+            var guncellenecekIzin = _personelIzinServisi.IzinTalepleriListele(calisanId.Value)
+                .FirstOrDefault(t => t.Id == id);
+
+            if (guncellenecekIzin == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new IzinTalepUpdateDTO
+            {
+                BaslangicTarihi = guncellenecekIzin.IzinBaslangicTarihi,
+                BitisTarihi = guncellenecekIzin.IzinBitisTarihi,
+                Aciklama = guncellenecekIzin.Aciklama,
+            };
+
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, IzinTalepUpdateDTO dto)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
+            _personelIzinServisi.IzinTalepGuncelle(id, dto);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var calisanId = GetGirisYapanCalisanId();
+            if (calisanId == null) { return RedirectToAction("Login", "Account"); }
+
+            var silinecekIzin = _personelIzinServisi
+                .IzinTalepleriListele(GetGirisYapanCalisanId().Value)
+                .FirstOrDefault(t => t.Id == id);
+
+            if (silinecekIzin != null)
+            {
+                _personelIzinServisi.IzinTalepSil(id);
+            }
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

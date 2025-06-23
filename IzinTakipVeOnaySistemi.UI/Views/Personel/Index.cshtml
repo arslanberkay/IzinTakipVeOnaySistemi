@@ -29,8 +29,8 @@
 				@if (izinTalep.TalepDurumu == IzinTakipVeOnaySistemi.DAL.Enums.TalepDurum.Bekliyor)
 				{
 					<td>
-						<a asp-action="Edit" class="btn btn-warning">Düzenle</a>
-						<a asp-action="Delete" class="btn btn-danger">Sil</a>
+						<a asp-action="Edit" asp-route-id="@izinTalep.Id" class="btn btn-warning">Düzenle</a>
+						<a asp-action="Delete" asp-route-id="@izinTalep.Id" class="btn btn-danger">Sil</a>
 					</td>
 				}
 			</tr>
