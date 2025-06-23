@@ -139,6 +139,7 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateUniqueEmail]
         public IActionResult Edit(int calisanId, CalisanCreateUpdateDTO dto)
         {
             if (!ModelState.IsValid)

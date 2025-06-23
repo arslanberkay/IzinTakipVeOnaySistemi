@@ -17,7 +17,7 @@ namespace IzinTakipVeOnaySistemi.UI.Filters
             if (form != null)
             {
                 var ayniEmailVarMi = calisanServisi.TumCalisanlariGetir()
-                    .Any(c => c.EpostaAdresi == form.Eposta);
+                    .Any(c => c.EpostaAdresi == form.Eposta && c.Id != form.Id);
 
                 if (ayniEmailVarMi)
                 {

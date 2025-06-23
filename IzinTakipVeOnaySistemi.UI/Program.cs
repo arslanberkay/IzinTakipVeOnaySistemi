@@ -4,7 +4,9 @@ using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
 using IzinTakipVeOnaySistemi.DAL.Context;
 using IzinTakipVeOnaySistemi.DAL.Repositories.Implementations;
 using IzinTakipVeOnaySistemi.DAL.Repositories.Interfaces;
+using IzinTakipVeOnaySistemi.UI.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace IzinTakipVeOnaySistemi.UI
 
@@ -14,6 +16,10 @@ namespace IzinTakipVeOnaySistemi.UI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .CreateLogger();
 
             builder.Services.AddDbContext<IzinTakipOnayDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Baglanti"))); //EF Core kullanýmý için DbContext sýnýfý projeye eklenir
 
@@ -52,7 +58,10 @@ namespace IzinTakipVeOnaySistemi.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+
             app.UseRouting();
+
+            app.UseMiddleware<RequestLogMiddleware>(); //Gelen her HTTP isteðinde çalýþacak þekilde araya girer.
 
             app.UseAuthorization();
 
