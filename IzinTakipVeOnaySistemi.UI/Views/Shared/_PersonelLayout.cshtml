@@ -2,19 +2,20 @@
 <html>
 <head>
 	<title>Personel Sayfası</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link href="~/css/Menu.css" rel="stylesheet" />
 </head>
 <body>
 	<div class="header">
 		<div class="left-section">
 			<h2>Personel Sayfası</h2>
-			<a href=""><button>İzin Talebi Oluştur</button></a>
+			<a asp-action="Create" asp-controller="Personel"><button>İzin Talebi Oluştur</button></a>
 		</div>
 
 		@if (Context.Session.GetInt32("CalisanId") != null)
 		{
 			<div class="right-section">
-				<div class="text-success">
+				<div class="text-white">
 					@Context.Session.GetString("AdSoyad") - @Context.Session.GetString("Rol")
 				</div>
 				<a asp-action="LogOut" asp-controller="Account">

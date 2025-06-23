@@ -2,6 +2,7 @@
 using IzinTakipVeOnaySistemi.BLL.DTO;
 using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
 using IzinTakipVeOnaySistemi.DAL.Enums;
+using IzinTakipVeOnaySistemi.UI.Filters;
 using IzinTakipVeOnaySistemi.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -68,6 +69,7 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateUniqueEmail]
         public IActionResult Create(CalisanCreateUpdateDTO dto)
         {
             if (!ModelState.IsValid)

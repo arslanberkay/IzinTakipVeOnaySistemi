@@ -18,6 +18,7 @@
 	<div class="form-group">
 		<label asp-for="Eposta">E-posta</label>
 		<input asp-for="Eposta" type="email" class="form-control" />
+		<span asp-validation-for="Eposta" class="text-danger"></span>
 	</div>
 
 	<div class="form-group">
@@ -38,7 +39,7 @@
 			<option value="">Rol seçiniz </option>
 		</select>
 	</div>
-		
+
 	<button type="submit" class="btn btn-success">OLUŞTUR</button>
 
 </form>
