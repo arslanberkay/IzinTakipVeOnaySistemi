@@ -6,39 +6,7 @@
 <h2>Çalışanlar</h2>
 <a asp-action="Create" class="btn btn-success">Yeni Çalışan Oluştur</a>
 
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Ad</th>
-			<th>Soyad</th>
-			<th>E-posta</th>
-			<th>İzin Sayısı</th>
-			<th>Rol</th>
-			<th>Departman Id</th>
-			<th>Departman Adı</th>
-			<th>İşlemler</th>
-		</tr>
-	</thead>
+<custom-table items="Model" controller-name="Account" columns="Id,Ad,Soyad,Eposta:E-posta,IzinSayisi:İzin Sayısı,Rol,DepartmanId:Departman Id,DepartmanAdi:Departman Adı"></custom-table>
 
-	<tbody>
-		@foreach (var calisan in Model)
-		{
-			<tr>
-				<th>@calisan.Id</th>
-				<td>@calisan.Ad</td>
-				<td>@calisan.Soyad</td>
-				<td>@calisan.Eposta</td>
-				<td>@calisan.IzinSayisi</td>
-				<td>@calisan.Rol</td>
-				<td>@calisan.DepartmanId</td>
-				<td>@calisan.DepartmanAdi</td>
-				<td>
-					<a asp-action="Edit" asp-route-calisanId="@calisan.Id" class="btn btn-warning">Düzenle</a>
-					<a asp-action="Delete" asp-route-calisanId="@calisan.Id" class="btn btn-danger">Sil</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
+
 

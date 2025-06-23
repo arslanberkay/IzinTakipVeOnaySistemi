@@ -96,10 +96,10 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int calisanId)
+        public IActionResult Edit(int id)
         {
             var guncellenecekCalisan = _calisanServisi.TumCalisanlariGetir()
-                .FirstOrDefault(x => x.Id == calisanId);
+                .FirstOrDefault(x => x.Id == id);
 
             if (guncellenecekCalisan == null)
             {
@@ -108,7 +108,7 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
 
             var dto = new CalisanCreateUpdateDTO
             {
-                Id = calisanId,
+                Id = id,
                 Ad = guncellenecekCalisan.Ad,
                 Soyad = guncellenecekCalisan.Soyad,
                 Eposta = guncellenecekCalisan.EpostaAdresi,
@@ -140,25 +140,25 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
 
         [HttpPost]
         [ValidateUniqueEmail]
-        public IActionResult Edit(int calisanId, CalisanCreateUpdateDTO dto)
+        public IActionResult Edit(int id, CalisanCreateUpdateDTO dto)
         {
             if (!ModelState.IsValid)
             {
                 return NotFound();
             }
 
-            _calisanServisi.CalisanGuncelle(calisanId, dto);
+            _calisanServisi.CalisanGuncelle(id, dto);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int calisanId)
+        public IActionResult Delete(int id)
         {
             var silinecekCalisan = _calisanServisi.TumCalisanlariGetir()
-                .FirstOrDefault(c => c.Id == calisanId);
+                .FirstOrDefault(c => c.Id == id);
 
             if (silinecekCalisan != null)
             {
-                _calisanServisi.CalisanSil(calisanId);
+                _calisanServisi.CalisanSil(id);
             }
 
             return RedirectToAction("Index");
