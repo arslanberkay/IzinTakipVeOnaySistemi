@@ -1,5 +1,39 @@
-﻿@{
+﻿@using IzinTakipVeOnaySistemi.UI.ViewModels
+@{
 	Layout = "_PersonelLayout";
 }
 
-<h2>Personel Sayfası</h2>
+@model IEnumerable<PersonelIzinTalepViewModel>
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>İzin Başlangıç Tarihi</th>
+			<th>İzin Bitiş Tarihi</th>
+			<th>Açıklama</th>
+			<th>Talep Durumu</th>
+			<th>Onay Tarihi</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (var izinTalep in Model)
+		{
+			<tr>
+				<td>@izinTalep.IzinBaslangicTarihi</td>
+				<td>@izinTalep.IzinBitisTarihi</td>
+				<td>@izinTalep.Aciklama</td>
+				<td>@izinTalep.TalepDurumu</td>
+				<td>@izinTalep.OnayTarihi</td>
+
+				@if (izinTalep.TalepDurumu == IzinTakipVeOnaySistemi.DAL.Enums.TalepDurum.Bekliyor)
+				{
+					<td>
+						<a asp-action="Edit" class="btn btn-warning">Düzenle</a>
+						<a asp-action="Delete" class="btn btn-danger">Sil</a>
+					</td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>

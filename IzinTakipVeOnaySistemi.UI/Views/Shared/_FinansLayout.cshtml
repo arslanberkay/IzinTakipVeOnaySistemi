@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Finans Sayfası</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/Menu.css" rel="stylesheet" />
 </head>
 <body>
@@ -14,7 +15,7 @@
         @if (Context.Session.GetInt32("CalisanId") != null)
         {
             <div class="right-section">
-                <div class="text-success">
+                <div class="text-white">
                     @Context.Session.GetString("AdSoyad") - @Context.Session.GetString("Rol")
                 </div>
                 <a asp-action="LogOut" asp-controller="Account">
