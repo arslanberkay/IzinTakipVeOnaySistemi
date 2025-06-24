@@ -202,5 +202,10 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
             return RedirectToAction("Login");
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
