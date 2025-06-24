@@ -1,11 +1,13 @@
 ﻿using IzinTakipVeOnaySistemi.BLL.DTO;
 using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
+using IzinTakipVeOnaySistemi.UI.Filters;
 using IzinTakipVeOnaySistemi.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 
 namespace IzinTakipVeOnaySistemi.UI.Controllers
 {
+    [RolAuthorize("Personel")]
     public class PersonelController : Controller
     {
         private readonly IPersonelIzinServisi _personelIzinServisi;
@@ -25,9 +27,6 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         {
             //Giriş yapan çalışanı bulalım
             var girisYapanCalisanId = GetGirisYapanCalisanId();
-
-            //Oturum Kontrolü
-            if (girisYapanCalisanId == null) { return RedirectToAction("Login", "Account"); }
 
             var izinTalepleri = _personelIzinServisi.IzinTalepleriListele(girisYapanCalisanId.Value)
                 .Select(x => new PersonelIzinTalepViewModel
@@ -54,11 +53,6 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         {
             var calisanId = GetGirisYapanCalisanId();
 
-            if (calisanId == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-
             dto.CalisanId = calisanId.Value;
 
             if (!ModelState.IsValid)
@@ -74,8 +68,6 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         public IActionResult Edit(int id)
         {
             var calisanId = GetGirisYapanCalisanId();
-
-            if (calisanId == null) { return RedirectToAction("Login", "Account"); }
 
             var guncellenecekIzin = _personelIzinServisi.IzinTalepleriListele(calisanId.Value)
                 .FirstOrDefault(t => t.Id == id);
@@ -111,8 +103,7 @@ namespace IzinTakipVeOnaySistemi.UI.Controllers
         public IActionResult Delete(int id)
         {
             var calisanId = GetGirisYapanCalisanId();
-            if (calisanId == null) { return RedirectToAction("Login", "Account"); }
-
+           
             var silinecekIzin = _personelIzinServisi
                 .IzinTalepleriListele(GetGirisYapanCalisanId().Value)
                 .FirstOrDefault(t => t.Id == id);

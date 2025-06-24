@@ -4,6 +4,7 @@ using IzinTakipVeOnaySistemi.BLL.Services.Interfaces;
 using IzinTakipVeOnaySistemi.DAL.Context;
 using IzinTakipVeOnaySistemi.DAL.Repositories.Implementations;
 using IzinTakipVeOnaySistemi.DAL.Repositories.Interfaces;
+using IzinTakipVeOnaySistemi.UI.Filters;
 using IzinTakipVeOnaySistemi.UI.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -23,6 +24,12 @@ namespace IzinTakipVeOnaySistemi.UI
 
             builder.Services.AddDbContext<IzinTakipOnayDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Baglanti"))); //EF Core kullanýmý için DbContext sýnýfý projeye eklenir
 
+            //Global filter
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<CalisanGirisKontrolAttribute>();
+            });
+
             //Repo kayýtlarý
             builder.Services.AddScoped(typeof(ICalisanRepository<>), typeof(CalisanRepository<>));
             builder.Services.AddScoped(typeof(IFinansRepository<>), typeof(FinansRepository<>));
@@ -40,6 +47,9 @@ namespace IzinTakipVeOnaySistemi.UI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //Her controller'a [CalisanGirisKontrol] yazmak yerine global filter olarak tanýmladým. 
+           
 
             builder.Services.AddSession();
 
