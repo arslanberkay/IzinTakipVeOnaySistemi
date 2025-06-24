@@ -55,7 +55,7 @@ namespace IzinTakipVeOnaySistemi.UI
 
             var app = builder.Build();
 
-            app.UseSession();
+            
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -67,11 +67,13 @@ namespace IzinTakipVeOnaySistemi.UI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseMiddleware<RequestLogMiddleware>(); //Gelen her HTTP isteðinde çalýþacak þekilde araya girer.
+
+            app.UseMiddleware<CalisanGirisKontrolAuthenticationMiddleware>();
 
             app.UseAuthorization();
 
